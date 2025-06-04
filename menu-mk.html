@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Мени – Македонски</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #111;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .back-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      z-index: 1001;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .menu-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .menu-item {
+      border: 4px solid rgba(255, 255, 255, 0.4);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #222;
+    }
+
+    .menu-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .menu-item img.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fixed-counter {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      color: rgba(255, 255, 255, 0.5);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 13px;
+      z-index: 1000;
+      font-weight: 500;
+      pointer-events: none;
+      user-select: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .fade-change {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    @media (max-width: 768px) {
+      .fixed-counter {
+        font-size: 12px;
+        padding: 3px 8px;
+      }
+
+      .menu-container {
+        padding: 10px;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="index.html" class="back-button">← Назад на избор на јазик</a>
+
+  <div class="fixed-counter" id="counter">Слика 1 од 13</div>
+
+  <div class="menu-container" id="menu">
+    <div class="menu-item"><img src="1.jpg" alt="1" loading="lazy" /></div>
+    <div class="menu-item"><img src="2.jpg" alt="2" loading="lazy" /></div>
+    <div class="menu-item"><img src="3.jpg" alt="3" loading="lazy" /></div>
+    <div class="menu-item"><img src="4.jpg" alt="4" loading="lazy" /></div>
+    <div class="menu-item"><img src="5.jpg" alt="5" loading="lazy" /></div>
+    <div class="menu-item"><img src="6.jpg" alt="6" loading="lazy" /></div>
+    <div class="menu-item"><img src="7.jpg" alt="7" loading="lazy" /></div>
+    <div class="menu-item"><img src="8.jpg" alt="8" loading="lazy" /></div>
+    <div class="menu-item"><img src="9.jpg" alt="9" loading="lazy" /></div>
+    <div class="menu-item"><img src="10.jpg" alt="10" loading="lazy" /></div>
+    <div class="menu-item"><img src="11.jpg" alt="11" loading="lazy" /></div>
+    <div class="menu-item"><img src="12.jpg" alt="12" loading="lazy" /></div>
+    <div class="menu-item"><img src="13.jpg" alt="13" loading="lazy" /></div>
+  </div>
+
+  <script>
+    const counter = document.getElementById('counter');
+    const items = document.querySelectorAll('.menu-item');
+    let currentIndex = -1;
+
+    function updateCounter() {
+      let index = 0;
+      const scrollY = window.scrollY + window.innerHeight / 2;
+
+      items.forEach((item, i) => {
+        const top = item.offsetTop;
+        const bottom = top + item.offsetHeight;
+        if (scrollY >= top && scrollY < bottom) {
+          index = i;
+        }
+      });
+
+      if (index !== currentIndex) {
+        currentIndex = index;
+        counter.classList.add('fade-change');
+
+        setTimeout(() => {
+          counter.textContent = `Слика ${index + 1} од ${items.length}`;
+          counter.classList.remove('fade-change');
+        }, 150);
+      }
+    }
+
+    window.addEventListener('scroll', updateCounter);
+    window.addEventListener('load', updateCounter);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.menu-item img').forEach(img => {
+      observer.observe(img);
+    });
+  </script>
+
+</body>
+</html>

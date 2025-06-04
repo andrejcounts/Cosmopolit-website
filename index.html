@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Choose Language</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet" />
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background: url('imagebckg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Dark overlay for better readability */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(18, 18, 18, 0.65); /* dark translucent overlay */
+      z-index: -1;
+    }
+
+    .logo {
+      width: 280px;
+      margin-bottom: 50px;
+      mix-blend-mode: screen;
+      user-select: none;
+      pointer-events: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    .language-buttons {
+      display: flex;
+      gap: 40px;
+      position: relative;
+      z-index: 1;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .language-buttons a {
+      background: rgba(255, 255, 255, 0.12);
+      padding: 18px 38px;
+      border-radius: 10px;
+      color: white;
+      font-weight: 500;
+      font-size: 20px;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      user-select: none;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+    }
+
+    .language-buttons a:hover,
+    .language-buttons a:focus {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(255,255,255,0.25);
+      outline: none;
+    }
+
+    @media (max-width: 480px) {
+      .language-buttons {
+        flex-direction: column;
+        gap: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <img src="logo.jpg" alt="Restaurant Logo" class="logo" />
+
+  <div class="language-buttons">
+    <a href="menu-en.html">English</a>
+    <a href="menu-mk.html">Македонски</a>
+  </div>
+
+</body>
+</html>
